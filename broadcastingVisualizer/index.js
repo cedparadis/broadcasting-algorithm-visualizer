@@ -8,8 +8,8 @@ let currentStep = 0;
       event.preventDefault();
 
       const numNodes = document.getElementById('numNodes').value;
-      const treeDataEndpoint = `http://127.0.0.1:5000/generate_random_tree/${numNodes}`;
-      const broadcastAlgorithmEndpoint = `http://127.0.0.1:5000/get_all_steps`;
+      const treeDataEndpoint = `https://broadcasting-algorithm-processor.onrender.com/generate_random_tree/${numNodes}`;
+      const broadcastAlgorithmEndpoint = `https://broadcasting-algorithm-processor.onrender.com/get_all_steps`;
       delay = 2000;
       let fullDeletedGraph = [];
       let nodesToBeDeleted = [];
