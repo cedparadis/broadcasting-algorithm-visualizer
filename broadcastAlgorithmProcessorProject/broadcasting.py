@@ -72,15 +72,20 @@ def tree_broadcast_center(G):
     values = {n: 0 for n in U}
     T = G.copy()
     T.remove_nodes_from(U)
+    print(U)
+    removed_nodes.clear()
     removed_nodes.update(U)  # stored in global for visualizer
-
+    print(list(removed_nodes))
 
     # step 2
     W = {node for node, deg in T.degree if deg == 1}
     values.update((w, G.degree[w] - 1) for w in W)
-    labeled_nodes.update((w, G.degree[w] - 1) for w in W) # stored in global for visualizer
+
+    labeled_nodes.clear()
+    labeled_nodes.update((w, G.degree[w] - 1) for w in W)  # stored in global for visualizer
 
     # step 3
+    w_deleted_nodes.clear()  # make sure it does not have old values
     while T.number_of_nodes() >= 2:
         # step 4  from all the nodes in W which are the vertices with deg at most 1, delete the vertex with the min time
         w = min(W, key=lambda n: values[n])

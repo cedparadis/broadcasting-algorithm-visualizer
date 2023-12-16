@@ -1,165 +1,36 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Practice D3 tree visualization</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style></style>
+  <title>Broadcasting Visualization</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <form id="treeForm">
-        <label for="numNodes">Number of Nodes: </label>
-        <input type="number" id="numNodes" name="numNodes" min="1" required>
-        <button type="submit">Generate Tree</button>
-    </form>
-    <div id="tree">
-        <script>
-            //Fetch the data with the form submission
-            document.getElementById('treeForm').addEventListener('submit', function(event){
-                event.preventDefault();
-
-                const numNodes = document.getElementById('numNodes').value;
-                console.log(numNodes);
-                if(!numNodes || numNodes <=0){
-                    alert("Please enter a valid number of nodes");
-                    return;
-                }
-                d3.select('#tree').html(''); //clear the previous tree
-
-                //Fetch the data from the backend API
-                fetch(`http://127.0.0.1:5000/generate_random_tree/${numNodes}`)
-                .then(response => response.json())
-                .then(data => {
-                    const root = d3.hierarchy(data);
-                    // Create the tree layout
-                    const treeLayout = d3.tree().size([600, 400]);
-                    treeLayout(root);
-                    
-                // Append SVG
-                const svg = d3.select('#tree')
-                    .append('svg')
-                    .attr('width', 800)
-                    .attr('height', 600)
-                    .append('g')
-                    .attr('transform', 'translate(50,50)');
-                
-                // Draw links
-                const links = svg.selectAll('.link')
-                    .data(root.links())
-                    .enter().append('path')
-                    .attr('class', 'link')
-                    .attr('stroke', 'black') // Change the color to black
-                    .attr('stroke-width', 2) // Increase the stroke width to make it thicker
-                    .attr('fill', 'none') // Remove the fill
-                    .attr('d', d3.linkVertical()
-                        .x(d => d.x)
-                        .y(d => d.y));
-                // Draw nodes
-                const nodes = svg.selectAll('.node')
-                    .data(root.descendants())
-                    .enter().append('g')
-                    .attr('class', 'node')
-                    .attr('transform', d => `translate(${d.x},${d.y})`);
-
-                nodes.append('circle')
-                    .attr('r', 10)
-                    .style('fill', 'steelblue');
-
-                nodes.append('text')
-                    .attr('dy', '0.35em')
-                    .attr('x', d => (d.children ? -15 : 15))
-                    .style('text-anchor', d => (d.children ? 'end' : 'start'))
-                    .text(d => d.data.name);
-                    //Fetch the bfs data from backend
-            fetch(`http://127.0.0.1:5000/bfs_on_random_tree`)
-                .then(response => response.json())
-                .then(bfsData => {
-                    console.log('Fetched BFS data: ', bfsData);
-
-                    //get all node circles
-                    const nodeCircles = d3.selectAll('.node circle');
-                    console.log('Nodes circles: ', nodeCircles);
-
-                    //iterate through bfs data and highilight
-                    let index = 0;
-                    const interval = setInterval(() => {
-                    if (index >= bfsData.length) {
-                        clearInterval(interval);
-                        return;
-                    }
-                    const currentNodeName = bfsData[index].node;
-                    // Log currentNode for debugging
-                    console.log('Current Node:', currentNodeName);
-
-                    // Log d.data.name for comparison
-            nodeCircles.each(function(d) {
-                console.log('d.data.name:', d.data.id);
-            });
-
-                    nodeCircles.filter(d => d.data.id === currentNodeName)
-                        .transition()
-                        .duration(500)
-                        .style('fill', 'orange');
-                    index++;
-                }, 1000);
-            }).catch(error => {
-                console.error('Error fetching bts: ', error);
-            });
-                }).catch(error => {
-                console.error('Error fetching tree data: ', error);
-            });
-
-             
-        });
-           
-            
-            
-/**
-            const treeData = {
-                name: 'A',
-                children: [
-                    { name: 'B', children: [{ name: 'D' }, { name: 'E' }] },
-                    { name: 'C', children: [{ name: 'F' }, { name: 'G' }] },
-                ],
-            };  
-              // Convert data to D3 hierarchy
-            const root = d3.hierarchy(treeData);
+  <header>
+    <h1>Broadcast Algorithm Visualization</h1>
+    <h3>Explore optimal broadcasting algorithm in tree to find the broadcast centers and its minimum broadcast time</h3>
+  </header>
+  <div id="container">
+    <svg id="tree-container"></svg>
+    <div id="stepDescription"></div>
+  </div>
+  <form id="treeForm">
+    <label for="numNodes">Number of Nodes: </label>
+    <input type="number" id="numNodes" name="numNodes" min="1" required>
+    <button type="submit">Generate Tree</button><span>PS: You can see the node Id by hovering them</span>
+  </form>
+  <label for="speedSelect">Visualization Speed:</label>
+  <select id="speedSelect" onchange="changeSpeed()">
+    <option value="4000">Slow</option>
+    <option value="2000" selected>Normal</option>
+    <option value="500">Fast</option>
+  </select>
+  <div id="information-title">Algorithm Information: </div>
+  <div id="information">
 
 
-            
+  </div>
 
-            
-
-            
-            d3.json('bfs_traversal.json').then(data => {
-                const interval = setInterval(() => {
-                    if (data.length === 0) {
-                        clearInterval(interval);
-                        return;
-                    }
-                    const currentNode = data.shift();
-                    // Log currentNode for debugging
-                    console.log('Current Node:', currentNode);
-
-                    // Log all node names in the visualization for comparison
-                    svg.selectAll('.node text')
-                        .each(function (d) {
-                            console.log('Node Name:', d.data.name);
-                        });
-
-                    svg.selectAll('.node circle')
-                        .filter(d => d.data.name === currentNode)
-                        .transition()
-                        .duration(500)
-                        .style('fill', 'orange');
-                }, 1000);
-            });
-
-            **/
-         
-        </script>
-    </div>
+  <script src="index.js"></script>
 </body>
-
 </html>

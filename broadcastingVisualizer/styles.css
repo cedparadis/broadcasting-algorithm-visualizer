@@ -1,0 +1,207 @@
+  /* styles.css */
+
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  
+  /* Form styles */
+  form {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  input[type="number"] {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 6px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Visualization Speed Select */
+  #speedSelect {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Algorithm Information */
+  #information {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+  
+  /* Tree Container */
+  #tree-container {
+    width: 70%; /* Adjust the width of the tree */
+    border: 1px solid #ccc;
+    margin-top: 20px;
+  }
+  
+  /* Step Description */
+  #stepDescription {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: black;
+    width: 25%; /* Adjust the width of the step description */
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+
+  #information-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    /* styles.css */
+
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .header {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .title {
+    font-size: 36px;
+    margin-bottom: 5px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 30px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  
+  /* Form styles */
+  .form {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .form-label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-ps {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #666;
+  }
+  
+  /* Visualization Speed Select */
+  .speed-label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .speed-select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Algorithm Information */
+  .information-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .information {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tree Container */
+  .tree-container {
+    width: 70%; /* Adjust the width of the tree */
+    border: 1px solid #ccc;
+    margin-top: 30px;
+    border-radius: 5px;
+  }
+  
+  /* Step Description */
+  .step-description {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: black;
+    width: 25%; /* Adjust the width of the step description */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  }

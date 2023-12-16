@@ -19,14 +19,11 @@ random_tree = None
 # Return neighbour node ??
 # Return step 7: broadcast center + broadcast value
 # return all in one method (appart from generating the tree) or separate...? one method seems better
+
+
 def generate_random_tree(num_nodes):
     tree = nx.generators.trees.random_tree(num_nodes)
     return tree
-
-
-def process_bfs_on_random_tree(tree):
-    bfs_nodes = list(nx.bfs_tree(tree, 0))
-    return bfs_nodes
 
 
 # Defining an endpoint for the generation of random trees
@@ -37,7 +34,8 @@ def generate_random_tree_route(num_nodes):
 
     tree_dict = {
         'nodes': [{'id': node} for node in random_tree.nodes()],
-        'links': [{'source': source, 'target': target} for source, target in random_tree.edges()]
+        'links': [{'source': source, 'target': target} for source, target in random_tree.edges()],
+        'root': next(node for node, degree in random_tree.degree() if degree > 1)
     }
 
     json_tree = jsonify(tree_dict)
@@ -45,37 +43,29 @@ def generate_random_tree_route(num_nodes):
     return json_tree
 
 
-@app.route('/get_broadcast_center')
+@app.route('/get_all_steps')
 def get_broadcast_center_on_random_tree():
     global random_tree
     if random_tree is None:
         return jsonify({'error': 'Random tree not generated'})
     # Perform broadcasting algorithm
     broadcast_center = br.tree_broadcast_center(random_tree)
-
-    broadcast_center_json = {
-        'min_broadcast_time': int(broadcast_center[0]),  # Assuming the integer is at index 0
-        'broadcast_centers': list(broadcast_center[1])  # Convert set to list
-    }
-    return jsonify(broadcast_center_json)
-
-
-@app.route('/get_step_one')
-def get_step_one_from_broadcast_algorithm():
     removed_nodes_list = list(br.removed_nodes)
-    data = {
-        "removed_nodes": removed_nodes_list
-    }
-    json_data = json.dumps(data)
-
-    return json_data
-
-
-@app.route('/get_step_two')
-def get_step_two_from_broadcast_algorithm():
     labeled_vertices = br.labeled_nodes
+    w_deleted_nodes = br.w_deleted_nodes
 
-    return jsonify(labeled_vertices)
+    steps_data = {
+        "step_one": {
+            "removed_nodes":  removed_nodes_list
+        },
+        "step_two": labeled_vertices,
+        "step_three_to_six": w_deleted_nodes,
+        "broadcast_center": {
+            'min_broadcast_time': int(broadcast_center[0]),  # Assuming the integer is at index 0
+            'broadcast_centers': list(broadcast_center[1])  # Convert set to list
+        }
+    }
+    return jsonify(steps_data)
 
 
 if __name__ == '__main__':
