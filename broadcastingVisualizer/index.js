@@ -29,8 +29,8 @@ let currentStep = 0;
 
           const root = data.root;
 
-          const width = 600;
-          const height = 400;
+          const width = 1000;
+          const height = 800;
 
           const svg = d3.select("#tree-container")
             .attr("width", width)
