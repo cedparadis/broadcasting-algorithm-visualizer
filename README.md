@@ -45,7 +45,7 @@ receive and process tree data efficiently
 2. **Set up the static website**: Set up frontend code in a dedicated IDE like Visual Studio Code.
 3. **Server Setup**: Deploy the Flask server as well as the static website on a suitable hosting platform or locally.
 
-## How to contribuate
+## How to contribute
 1. **Fork + clone**: Fork the repo and clone it to your local computer.
 2. **Adding broadcasting algorithm** : The backend broadcasting algorithm are based on the NetworkX library. You can either add new python file in the broadcastAlgorithmProcessorProject folder which already uses NetworkX library OR you can add your algorithms directly to NetworkX and get your PR approved
 3. **Adding endpoints** : To send the data, you can create a new file or add to the app.py file to create new endpoints to send the data from your broadcast algorithms
